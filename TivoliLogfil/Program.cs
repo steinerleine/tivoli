@@ -77,16 +77,20 @@ namespace TivoliLogfil
             {
                 str = str.Substring(index + searchString.Length, str.Length - (index + searchString.Length));
                 index = str.IndexOf("\r");
-                str = str.Substring(0, index);
-                str = str.Replace(".", ",");
-                try
+                if (index > 0)
                 {
-                    result = float.Parse(str);
+                    str = str.Substring(0, index);
+                    str = str.Replace(".", ",");
+                    try
+                    {
+                        result = float.Parse(str);
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Couldn't parse float: " + e.Message);
+                    }
                 }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine("Couldn't parse float: " + e.Message);
-                }
+                
 
             }
             return result;
