@@ -11,11 +11,12 @@ namespace TivoliLogfil
     class Program
     {
         private const string tab = "\t";
-        private const string fileName = "errors.csv";
+        private const string fileName = @"\Data\errors.csv";
 
         static void Main(string[] args)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
+            string path = Path.GetDirectoryName(System.AppDomain.CurrentDomain.BaseDirectory);
+            path = Directory.GetParent(Directory.GetParent(path).FullName).FullName + fileName;
 
             List<LogfilData> results = ReadCSV(path);
 
